@@ -20,21 +20,23 @@ class Solution
 {
     long countTriplets(long arr[], int n,int sum)
     {
-        int cnt=0;
-        Arrays.sort(arr);
+        int cnt=0;// 5 1 3 4 7
+        Arrays.sort(arr); //1 3 4 5 7 ,sum=4
        
-        for(int i=0;i<=(n-3);i++){
+        for(int i=0;i<=(n-3);i++){ 
             int j=i+1;
             int k=n-1;
             
             while(j<k){
               
                 
-                if(arr[i]+arr[j]+arr[k]<sum){
-                    cnt+=k-j;
+                if(arr[i]+arr[j]+arr[k]<sum){ // 1 3 4 5 7 
+                                            //   i j     k
+                                            //summation ke barate hobe 
+                    cnt+=k-j; 
                     j++;
                 }
-                else{
+                else{//arr[i]+arr[j]+arr[k]>=sum , summation ke komate hobr
                     k--;
                 }
                 
