@@ -35,6 +35,8 @@ class Solution
        //but for minheap
        priority_queue<pii,vector<pii>,greater<pii>>pq;//minheap
        
+       //pair-> element,array number
+       
        for(int i=0;i<K;i++){
            pq.push({arr[i][0],i});//taking the first element from each sorted array
        }
@@ -43,7 +45,7 @@ class Solution
        vector<int>ans;
        
        while(!pq.empty()){
-           auto x=pq.top();
+           auto x=pq.top();// x is also a vector of pair
            ans.push_back(x.first);
            pq.pop();
            
