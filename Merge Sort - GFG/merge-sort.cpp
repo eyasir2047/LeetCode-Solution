@@ -24,7 +24,9 @@ class Solution
          // Your code here
          //int n=abs(r-l)+3;
         /// vector<int>b(10000,0);
-        int b[1000000];
+        int len1=m-l+1;
+        int len2=r-m;
+        int b[len1+len2+1000000];
          int i=l;
          int k=l;
          int j=m+1;
@@ -71,6 +73,7 @@ class Solution
         mergeSort(arr,mid+1,r);
         merge(arr,l,mid,r);
         }
+    
     }
 };
 
