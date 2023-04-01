@@ -92,29 +92,38 @@ Node *buildTree(string str) {
 class Hello{
 public:    
 
-    int countNodes(Node* root){
-        if(root==NULL) return 0;
-        return 1+countNodes(root->left)+countNodes(root->right);
-    }
-    
-    bool ischeck(Node* root,int v,int countNode){
-        if(root==NULL) return true;
-        
-        if(v>= countNode)
-        return false;
-        
-        
-     return ischeck(root->left,2*v+1,countNode) && ischeck(root->right,2*v+2,countNode);
-     
-    }
+
     bool isCompleteBT(Node* root){
         
+    //solving with the level order traversal
+    queue<Node*>q;
+    q.push(root);
+   
+    bool ans=false;
+    while(!q.empty()){
+        Node* temp=q.front();
+        q.pop();
         
-        int nodecount=countNodes(root);
+        if(temp!=NULL){
+            
+            if(ans)
+            return false;
+            
+           // if(temp->left)
+            q.push(temp->left);
+            //if(temp->right)
+            q.push(temp->right);
+            
+        }
+        else{
+            ans= true;
+        }
         
         
-       return ischeck(root,0,nodecount);
-        
+            
+    }
+    
+    return true;;
         
     }
 };
