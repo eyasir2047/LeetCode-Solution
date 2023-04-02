@@ -86,30 +86,55 @@ Node* buildTree(string str)
 
 class Solution{
 public:    
-
-    int countNodes(Node* root){
-        if(root==NULL) return 0;
-        return 1+countNodes(root->left)+countNodes(root->right);
-    }
-    
-    bool ischeck(Node* root,int v,int countNode){
-        if(root==NULL) return true;
-        
-        if(v>= countNode)
-        return false;
-        
-        
-     return ischeck(root->left,2*v+1,countNode) && ischeck(root->right,2*v+2,countNode);
-     
-    }
     bool isCompleteBT(Node* root){
+        bool ans=false;
+        queue<Node*>q;
+        q.push(root);
         
+        while(!q.empty()){
+            Node* temp=q.front();
+            q.pop();
+            
+            if(root==NULL) {
+                ans=true;
+            }
+            
+            else{
+                
+                
+                
+            
+            if(temp->left){
+                
+          
+            if(ans)
+            return false;
+            
+              q.push(temp->left);
+            
+            }
+            else ans=true;
+            
+            if(temp->right){
+                 if(ans)
+            return false;
+            
+             q.push(temp->right);
+            
+            }
+            else
+            ans=true;
+            
+          
+            
+           
         
-        int nodecount=countNodes(root);
+            
+            }
+        }
         
-        
-       return ischeck(root,0,nodecount);
-        
+        return true;
+       
         
     }
 };
