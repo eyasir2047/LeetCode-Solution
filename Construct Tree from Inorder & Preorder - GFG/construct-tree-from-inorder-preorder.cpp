@@ -38,29 +38,41 @@ struct Node
   Node* right;
 };
 */
+
+/*Complete the code here.
+Node is as follows:
+struct Node
+{
+  int data;
+  Node* left;
+  Node* right;
+};
+*/
 class Solution{
     
     public:
-    int pi=0;
-    Node* bt(int  in[] , int pre[], int is, int ie)
+    int k=0;
+    Node* bt(int  in[] , int pre[], int left, int right)
     {
-        if(is>ie)
+        if(left>right)
         {
             return NULL;
         }
-        Node* root = new Node (pre[pi]);
-        pi++;
+        Node* root = new Node (pre[k]);
+        k++;
         int i;
-        for(int f=is;f<=ie;f++)
+        for(int j=left;j<=right;j++)
         {
-            if(in[f]== root->data)
+            if(in[j]== root->data)
             {
-                i=f;
+                i=j;
                 break;
             }
         }
-        root->left = bt( in ,  pre, is, i-1);
-        root->right = bt( in ,  pre, i+1, ie);
+        
+        root->left = bt( in ,  pre, left, i-1);
+        root->right = bt( in ,  pre, i+1, right);
+        
         return root;
     }
     Node* buildTree(int in[],int pre[], int n)
