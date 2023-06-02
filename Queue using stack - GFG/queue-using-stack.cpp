@@ -9,26 +9,30 @@ class Queue {
     stack<int> s1, s2;
 public:
 
-    void enqueue(int x) {//push operation costly ->0(n)
+    void enqueue(int x) {//pop operation costly ->0(n)
         
-        while(!s1.empty()){
-            s2.push(s1.top());
-            s1.pop();
-        }
+        
         s1.push(x);
-        while(!s2.empty()){
-            s1.push(s2.top());
-            s2.pop();
-        }
     }
 
-    int dequeue() {//-> 0(1)
-        if(s1.empty())
+    int dequeue() {
+        if(s2.empty() && s1.empty())
         return -1;
         
-        int s=s1.top();
-        s1.pop();
-        return s;
+       if (s2.empty()) {
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+        
+        int x=s2.top();
+        s2.pop();
+        
+        
+        return x;
+        
+        
     }
 };
 
