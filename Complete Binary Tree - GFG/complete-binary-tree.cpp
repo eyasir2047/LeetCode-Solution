@@ -87,53 +87,44 @@ Node* buildTree(string str)
 class Solution{
 public:    
     bool isCompleteBT(Node* root){
-        bool ans=false;
+        if(root==NULL){
+            return true;
+        }
         queue<Node*>q;
         q.push(root);
+        bool flag=false;
         
         while(!q.empty()){
             Node* temp=q.front();
             q.pop();
             
-            if(root==NULL) {
-                ans=true;
+            if(flag==true && (temp->right || temp->left)){
+                return false;
             }
-            
-            else{
-                
-                
-                
             
             if(temp->left){
-                
-          
-            if(ans)
-            return false;
-            
-              q.push(temp->left);
-            
+                q.push(temp->left);
             }
-            else ans=true;
+            else flag=true;
             
             if(temp->right){
-                 if(ans)
-            return false;
-            
-             q.push(temp->right);
-            
-            }
-            else
-            ans=true;
-            
-          
-            
-           
-        
-            
+                if(temp->left==NULL){
+                    return false;
+                }
+                q.push(temp->right);
+            }else {
+                flag=true;
             }
         }
         
         return true;
+        
+        
+            
+            
+          
+            
+
        
         
     }
