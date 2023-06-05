@@ -89,6 +89,20 @@ Node *buildTree(string str) {
         left = right = NULL;
     }
 };*/
+
+// User Function template for C++
+
+// Structure of node
+/*struct Node {
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};*/
 class Hello{
 public:    
 
@@ -96,36 +110,45 @@ public:
     bool isCompleteBT(Node* root){
         
     //solving with the level order traversal
+    if(root==NULL){
+        return true;
+    }
     queue<Node*>q;
     q.push(root);
+    bool flag=false;
    
-    bool ans=false;
+   
     while(!q.empty()){
         Node* temp=q.front();
         q.pop();
         
-        if(temp!=NULL){
-            
-            if(ans)
-            return false;
-            
-           // if(temp->left)
+        if(flag && (temp->right || temp->left))
+        return false;
+        
+        if(temp->left){
             q.push(temp->left);
-            //if(temp->right)
+        }else{
+            flag=true;
+        }
+        
+        if(temp->right){
+            if(temp->left==NULL){
+                return false;
+            }
             q.push(temp->right);
-            
         }
         else{
-            ans= true;
+            flag=true;
         }
         
         
-            
-    }
-    
-    return true;;
         
-    }
+        
+       
+         
+}
+return true;
+}
 };
 class Solution {
   public:
