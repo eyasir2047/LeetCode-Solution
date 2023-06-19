@@ -6,40 +6,48 @@ using namespace std;
 class Solution
 {
 	public:
+	//kahn's algorithm-> bfs
 	
-	void dfs(int node,vector<int>adj[],bool vis[],stack<int>&st){
-	    vis[node]=1;
-	    
-	    for(auto child: adj[node]){
-	        if(!vis[child]){
-	            dfs(child,adj,vis,st);
-	        }
-	    }
-	    
-	    st.push(node);
-	}
+	
 	//Function to return list containing vertices in Topological order. 
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    // code here
-	    bool vis[V]={0};
-	    
-	     stack<int>st;
+	    int indegree[V]={0};
 	    
 	    for(int i=0;i<V;i++){
-	        if(!vis[i]){
-	            dfs(i,adj,vis,st);
+	        for(auto child:adj[i]){
+	            indegree[child]++;
 	        }
 	    }
 	    
-	    vector<int>ans;
 	    
-	    while(!st.empty()){
-	        ans.push_back(st.top());
-	        st.pop();
-	    }
+	     queue<int>q;
+	     
+	     for(int i=0;i<V;i++){
+	         if(indegree[i]==0){
+	             q.push(i);
+	         }
+	     }
+	     
+	     vector<int>ans;
+	     
+	     while(!q.empty()){
+	         int node=q.front();
+	         q.pop();
+	         ans.push_back(node);
+	         
+	         for(auto child:adj[node]){
+	             indegree[child]--;
+	             if(indegree[child]==0){
+	                 q.push(child);
+	             }
+	         }
+	     }
+	     
+	     return ans;
 	    
-	    return ans;
+	    
 	    
 	    
 	   
