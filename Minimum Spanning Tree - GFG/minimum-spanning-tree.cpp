@@ -6,38 +6,68 @@ using namespace std;
 class Solution
 {
 	public:
+	
+	int parent[100000],size[100000];
+	
+	void make(int v){
+	    parent[v]=v;
+	    size[v]=1;
+	}
+	
+	int find(int v){
+	    if(v==parent[v])return v;
+	    return parent[v]=find(parent[v]);
+	}
+	
+	void Union(int a,int b){
+	    a=find(a);
+	    b=find(b);
+	    if(size[a]<size[b]){
+	        swap(a,b);
+	    }
+	    parent[b]=a;
+	    size[a]+=size[b];
+	}
+	
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
     int spanningTree(int V, vector<vector<int>> adj[])//{0,{1,5}}
     {
-        // code here
-        //priority_queue {{wt,node}} -> {{x1,y1},{x2,y2}.....}
-        
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-        pq.push({0,0});
-        vector<int>vis(V,0);
-        
-        int sum=0;
-        
-        while(!pq.empty()){
-            auto it=pq.top();
-            pq.pop();
-            int wt=it.first;
-            int node=it.second;
-            if(!vis[node]){
-                vis[node]=1;
-                sum+=wt;
-               for(auto child:adj[node]){
-                   int adjNode=child[0];
-                   int edgeW=child[1];
-                   if(!vis[adjNode]){
-                       pq.push({edgeW,adjNode});
-                   }
-                   
-               }
+       //kruskal algorithm 
+       //vector pairs are sort according to the first element
+       //{wt,{a,b}}-> this will sort according to the weight(wt) of the node
+       
+      vector<pair<int, pair<int, int>>> v;
+       
+        for(int i=0;i<V;i++){
+            for(auto it:adj[i]){
+                int adjNode=it[0];
+                int wt=it[1];
+                
+                v.push_back({wt,{i,adjNode}});
+                
             }
         }
         
-        return sum;
+        sort(v.begin(),v.end());
+        int cost=0;
+        for(int i=0;i<V;i++){
+            make(i);
+        }
+        
+        for(auto it:v){
+            int weight=it.first;
+            int node1=it.second.first;
+            int node2=it.second.second;
+            
+            if(find(node1)==find(node2))continue;
+            Union(node1,node2);
+            cost+=weight;
+            
+        }
+        
+        return cost;
+       
+       
     }
     
 };
