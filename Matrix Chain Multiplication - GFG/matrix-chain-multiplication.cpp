@@ -10,28 +10,35 @@ using namespace std;
 class Solution{
 public:
 
-    int dp[110][110];
-
-    int func(int i,int j, int arr[]){
-        if(i==j)return 0;
-        int mini=INT_MAX;
-        if(dp[i][j]!=-1)return dp[i][j];
-        
-        for(int k=i;k<j;k++){
-            int steps = arr[i-1]*arr[k]*arr[j]+func(i,k,arr)+func(k+1,j,arr);
-            mini=min(mini,steps);
-        }
-        
-        return dp[i][j]=mini;
-        
-    }
+    
 
     int matrixMultiplication(int n, int arr[])
     {
         // code here
-        memset(dp,-1,sizeof(dp));
+       // memset(dp,-1,sizeof(dp));
+       int dp[110][110];
+       
+       for(int i=1;i<=(n-1);i++)dp[i][i]=0;//base case
+       
+       for(int i=n-1;i>=1;i--){
+           for(int j=i+1;j<=(n-1);j++){
+               //i<j
+            int mini=INT_MAX;
+          for(int k=i;k<j;k++){
+            int steps = arr[i-1]*arr[k]*arr[j]+dp[i][k]+dp[k+1][j];
+            mini=min(mini,steps);
+        }
         
-        return func(1,n-1,arr);
+        dp[i][j]=mini;
+           
+               
+           }
+       }
+       
+       
+       
+        
+        return dp[1][n-1];
     }
 };
 
